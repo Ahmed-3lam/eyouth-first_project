@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 AppBar getMyAppBar(){
   return AppBar(
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.green,
     title: Text(
       "WhatsApp",
       style: TextStyle(color: Colors.white),

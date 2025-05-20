@@ -1,0 +1,1 @@
+const String avatarImage1 =  "https://static.vecteezy.com/system/resources/previews/009/305/107/non_2x/man-avatar-clipart-illustration-free-png.png";
