@@ -35,6 +35,17 @@ const List<Map<String, dynamic>> myMessageList = [
     "message": "I'm also doing well. How about you?",
     "time": "1:20 PM",
     "isRead": true,
-    "messageType": "message",
+    "messageType": "text",
+  },
+
+  {
+    "id": 5,
+    "name": "Jane Smith",
+    "avatar": "https://static.vecteezy.com/system/resources/previews/009/305/107/non_2x/man-avatar-clipart-illustration-free-png.png",
+    "message": "Hi, I'm doing well. How about you?",
+    "time": "11:15 AM",
+    "isRead": true,
+    "messageType": "image",
+
   }
 ];

@@ -3,6 +3,7 @@ import 'package:first_project/utils/my_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
+import 'message_type.dart';
 import 'model/chat_model.dart';
 
 void main() {
@@ -38,10 +39,11 @@ class MyApp extends StatelessWidget {
               ),
               // for (int i = 0; i < myMessageList.length; i++) myChatMessage(),
               ListView.builder(
-                shrinkWrap: true,
-                itemCount: myMessageList.length,
-                itemBuilder: (context, index) => myChatMessage(index),
-              ),
+                  shrinkWrap: true,
+                  itemCount: myMessageList.length,
+                  itemBuilder: (context, index) {
+                    return myChatMessage(index);
+                  }),
             ],
           ),
         ),
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
   }
 
   Widget myChatMessage(int index) {
-    ChatModel myChatModel =  ChatModel.fromJson(myMessageList[index]);
+    ChatModel myChatModel = ChatModel.fromJson(myMessageList[index]);
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Row(
@@ -76,14 +78,7 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                width: 200,
-                child: Text(
-                  myChatModel.message!,
-                  style: TextStyle(color: Colors.grey),
-                  overflow:TextOverflow.ellipsis ,
-                ),
-              ),
+            getMyMessageType(myChatModel),
             ],
           ),
           Spacer(),
@@ -92,4 +87,55 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+  Widget getMyMessageType(ChatModel myChatModel){
+    if (myChatModel.messageType == MessageType.TEXT){
+      return
+        SizedBox(
+          width: 200,
+          child: Text(
+            myChatModel.message!,
+            style: TextStyle(color: Colors.grey),
+            overflow: TextOverflow.ellipsis,
+          ),
+        );
+    }else if(myChatModel.messageType == MessageType.VIDEO){
+      return Row(
+        children: [
+          Icon(Icons.video_call),
+          SizedBox(width: 5,),
+          SizedBox(
+            width: 200,
+            child: Text(
+              "Video",
+              style: TextStyle(color: Colors.grey),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      );
+    }else{
+     return Row(
+        children: [
+          Icon(Icons.gif),
+          SizedBox(width: 5,),
+          SizedBox(
+            width: 200,
+            child: Text(
+              "Gif",
+              style: TextStyle(color: Colors.grey),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      );
+    }
+
+
+  }
+
+
+
 }
+
+

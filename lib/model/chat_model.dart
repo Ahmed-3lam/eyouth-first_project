@@ -1,3 +1,5 @@
+import 'package:first_project/message_type.dart';
+
 class ChatModel {
    int? id;
    String? name;
@@ -5,7 +7,7 @@ class ChatModel {
    String? message;
    String? time;
    bool? isRead;
-   String? messageType;
+   MessageType? messageType;
 
   ChatModel({
     this.id,
@@ -24,7 +26,7 @@ class ChatModel {
     message = json["message"];
     time = json["time"];
     isRead = json["isRead"];
-    messageType = json["messageType"];
+    messageType = getMyMessageTypeText(json["messageType"]);
   }
 }
 
