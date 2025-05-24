@@ -1,10 +1,8 @@
-import 'package:first_project/utils/custom_chat.dart';
-import 'package:first_project/utils/my_app_bar.dart';
+import 'package:first_project/widgets/app_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
-import 'message_type.dart';
-import 'model/chat_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,126 +14,72 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: getMyAppBar(),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
+        backgroundColor: Colors.white,
+        appBar: buildAppBar(),
+        body: Center(
           child: Column(
             children: [
-              customChat(
-                myIcon: Icons.lock,
-                text: "Locked Chats",
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Icon(
+                        CupertinoIcons.search,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "Search",
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      )
+                    ],
+                  ),
+                ),
               ),
               SizedBox(
-                height: 20,
+                height: 100,
+                child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 30,
+                    separatorBuilder: (context, index) => SizedBox(
+                          width: 10,
+                        ),
+                    itemBuilder: (context, index) => CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      radius: 40,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 35,
+                        child: CircleAvatar(
+                          radius: 30,
+                              child: Container(
+                                height: 40,
+                                child: Image.network(
+                                  avatarImage1,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                      ),
+                    )),
               ),
-              customChat(
-                myIcon: Icons.archive,
-                text: "Archived",
-                count: "10",
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              // for (int i = 0; i < myMessageList.length; i++) myChatMessage(),
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: myMessageList.length,
-                  itemBuilder: (context, index) {
-                    return myChatMessage(index);
-                  }),
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget myChatMessage(int index) {
-    ChatModel myChatModel = ChatModel.fromJson(myMessageList[index]);
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: NetworkImage(
-              myChatModel.avatar!,
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                myChatModel.name!,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            getMyMessageType(myChatModel),
-            ],
-          ),
-          Spacer(),
-          Text(myChatModel.time!),
-        ],
-      ),
-    );
-  }
-
-  Widget getMyMessageType(ChatModel myChatModel){
-    if (myChatModel.messageType == MessageType.TEXT){
-      return
-        SizedBox(
-          width: 200,
-          child: Text(
-            myChatModel.message!,
-            style: TextStyle(color: Colors.grey),
-            overflow: TextOverflow.ellipsis,
-          ),
-        );
-    }else if(myChatModel.messageType == MessageType.VIDEO){
-      return Row(
-        children: [
-          Icon(Icons.video_call),
-          SizedBox(width: 5,),
-          SizedBox(
-            width: 200,
-            child: Text(
-              "Video",
-              style: TextStyle(color: Colors.grey),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      );
-    }else{
-     return Row(
-        children: [
-          Icon(Icons.gif),
-          SizedBox(width: 5,),
-          SizedBox(
-            width: 200,
-            child: Text(
-              "Gif",
-              style: TextStyle(color: Colors.grey),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      );
-    }
-
-
-  }
-
-
-
 }
-
-
