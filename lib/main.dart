@@ -3,6 +3,7 @@ import 'package:first_project/utils/my_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
+import 'model/chat_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,34 +19,38 @@ class MyApp extends StatelessWidget {
         appBar: getMyAppBar(),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                customChat(
-                  myIcon: Icons.lock,
-                  text: "Locked Chats",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                customChat(
-                  myIcon: Icons.archive,
-                  text: "Archived",
-                  count: "10",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                for (int i = 0; i < 20; i++) myChatMessage(),
-              ],
-            ),
+          child: Column(
+            children: [
+              customChat(
+                myIcon: Icons.lock,
+                text: "Locked Chats",
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              customChat(
+                myIcon: Icons.archive,
+                text: "Archived",
+                count: "10",
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              // for (int i = 0; i < myMessageList.length; i++) myChatMessage(),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: myMessageList.length,
+                itemBuilder: (context, index) => myChatMessage(index),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget myChatMessage() {
+  Widget myChatMessage(int index) {
+    ChatModel myChatModel =  ChatModel.fromJson(myMessageList[index]);
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Row(
@@ -55,7 +60,7 @@ class MyApp extends StatelessWidget {
           CircleAvatar(
             radius: 30,
             backgroundImage: NetworkImage(
-              avatarImage1,
+              myChatModel.avatar!,
             ),
           ),
           SizedBox(
@@ -65,20 +70,24 @@ class MyApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Ahmed Allam",
+                myChatModel.name!,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                "My Message ,kjjgfjjgfgfg",
-                style: TextStyle(color: Colors.grey),
+              SizedBox(
+                width: 200,
+                child: Text(
+                  myChatModel.message!,
+                  style: TextStyle(color: Colors.grey),
+                  overflow:TextOverflow.ellipsis ,
+                ),
               ),
             ],
           ),
           Spacer(),
-          Text("11:00 PM")
+          Text(myChatModel.time!),
         ],
       ),
     );
