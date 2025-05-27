@@ -1,5 +1,6 @@
 
 const String avatarImage1 =  "https://static.vecteezy.com/system/resources/previews/009/305/107/non_2x/man-avatar-clipart-illustration-free-png.png";
+const String avatarImage2 = "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?semt=ais_hybrid&w=740";
 const List<Map<String, dynamic>> myMessageList = [
   {
     "id": 1,
