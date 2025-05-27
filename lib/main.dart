@@ -1,5 +1,3 @@
-import 'package:first_project/widgets/app_bar.dart';
-import 'package:first_project/widgets/build_status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,93 +15,153 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: buildAppBar(),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-                children: [
+        appBar: AppBar(
+          leading: Icon(
+            CupertinoIcons.left_chevron,
+            color: Colors.grey,
+          ),
+          title: Text(
+            "My Profile",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          actions: [
             Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(16)),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Icon(
-                    CupertinoIcons.search,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "Search",
-                    style: TextStyle(color: Colors.grey, fontSize: 20),
-                  )
-                ],
+              padding: const EdgeInsets.only(right: 12.0),
+              child: Icon(
+                Icons.settings,
+                color: Colors.grey,
+                size: 30,
               ),
-            ),
-          ),
-          SizedBox(
-            height: 100,
-            child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: 30,
-                separatorBuilder: (context, index) =>
-                    SizedBox(
-                      width: 10,
-                    ),
-                itemBuilder: (context, index) => buildStatus()),
-          ),
-
-          Expanded(
-            child: ListView.separated(
-              itemCount: 10,
-              separatorBuilder: (c, i) => SizedBox(height: 20,),
-              itemBuilder: (context, index) =>
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(avatarImage2),
-                      ),
-                      SizedBox(width: 10,),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Ahmed Allam", style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),),
-                          Text("Hello, from EYOUTH " + "." + " 9 min",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),),
-                        ],
-                      ),
-                      Spacer(),
-                      Icon(Icons.check_circle, color: Colors.grey,)
-                    ],
-                  ),
-            ),
-          ),
-
-
+            )
           ],
         ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                _header(),
+                SizedBox(
+                  height: 70,
+                ),
+                _buildSettingItem(icon: Icons.favorite, text: "Favourites"),
+                _buildSettingItem(icon: Icons.archive, text: "Download"),
+                Divider(),
+                _buildSettingItem(icon: Icons.language, text: "Language"),
+                _buildSettingItem(icon: Icons.location_on, text: "Location"),
+                _buildSettingItem(icon: Icons.wallet, text: "Subscription"),
+                Divider(),
+                _buildSettingItem(icon: Icons.delete, text: "Clear Cache"),
+                _buildSettingItem(icon: Icons.timelapse, text: "Clear history"),
+                _buildSettingItem(
+                  icon: Icons.logout,
+                  text: "Logout",
+                  myColor: Colors.red,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
-    ),)
-    ,
     );
   }
 
+  Widget _buildSettingItem(
+      {required IconData icon, required String text, Color? myColor}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: myColor ?? Colors.grey,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Spacer(),
+          Icon(
+            CupertinoIcons.right_chevron,
+            color: Colors.grey,
+          )
+        ],
+      ),
+    );
+  }
 
+  Row _header() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Stack(
+          // alignment: Alignment.bottomRight,
+          children: [
+            CircleAvatar(
+              radius: 60,
+              backgroundImage: NetworkImage(avatarImage2),
+            ),
+            Positioned(
+              right: 0,
+              bottom: 0,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(Icons.camera_alt_outlined),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Mohamed Alaa",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Text(
+                "mohamed434545@gmail.com",
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 40.0),
+                child: MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  color: Colors.green,
+                  child: Text(
+                    "Edit Profile",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
 }
