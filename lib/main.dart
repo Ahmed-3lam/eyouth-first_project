@@ -1,23 +1,18 @@
+import 'package:first_project/splash_screen1.dart';
 import 'package:flutter/material.dart';
-
-import 'my_home.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHome(),
+    return GetMaterialApp(
+      home: SplashScreen1(),
     );
   }
 }
