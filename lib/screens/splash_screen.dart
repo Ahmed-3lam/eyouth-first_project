@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:first_project/screens/onboarding_one.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -12,13 +14,31 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Timer? _timer;
   var color = Colors.white;
   var imagePath = "assets/images/logo_2.png";
+  Timer? _timer;
+  int _start = 4;
 
   void startTimer() {
-    const oneSec = const Duration(milliseconds: 300);
-    var time = Timer.periodic(oneSec, (Timer t) => _changeTheme());
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+            //push
+            //Replacement
+            Get.off(OnboardingOne());
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+          _changeTheme();
+        }
+      },
+    );
   }
 
   _changeTheme() {
@@ -41,6 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     startTimer();
+
     super.initState();
   }
 
