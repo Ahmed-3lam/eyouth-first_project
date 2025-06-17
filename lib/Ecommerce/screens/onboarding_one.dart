@@ -1,8 +1,8 @@
-import 'package:first_project/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../const.dart';
+import 'auth_screen.dart';
 
 class OnboardingOne extends StatefulWidget {
   const OnboardingOne({super.key});

@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:first_project/const.dart';
 import 'package:flutter/material.dart';
+
+import '../const.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
