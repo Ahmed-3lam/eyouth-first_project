@@ -30,3 +30,13 @@ class NoteController {
 }
 
 /// MVC
+var jsonData = [
+  {
+    "title": "Note 1",
+    "description": "This is a note",
+  },
+  {
+    "title": "Note 2",
+    "description": "This is a note",
+  },
+];
