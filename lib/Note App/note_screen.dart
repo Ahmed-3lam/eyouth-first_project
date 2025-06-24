@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'note_controller.dart';
-import 'note_model.dart';
 
 class NoteScreen extends StatefulWidget {
   const NoteScreen({super.key});
@@ -13,7 +12,6 @@ class NoteScreen extends StatefulWidget {
 
 class _NoteScreenState extends State<NoteScreen> {
   final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,7 @@ class _NoteScreenState extends State<NoteScreen> {
           itemBuilder: (context, index) => _buildNoteItem(
               color: Colors.blue,
               index: index,
-              noteModel: NoteController.noteList[index]),
+              title: NoteController.noteList[index]),
         ),
       ),
       floatingActionButton: _buildFloatingActionButton(context),
@@ -55,7 +53,7 @@ class _NoteScreenState extends State<NoteScreen> {
 
   Padding _buildNoteItem({
     required Color color,
-    required NoteModel noteModel,
+    required String title,
     required int index,
   }) {
     return Padding(
@@ -67,7 +65,7 @@ class _NoteScreenState extends State<NoteScreen> {
         children: [
           InkWell(
             onTap: () async {
-              _titleController.text = noteModel.title;
+              _titleController.text = NoteController.noteList[index];
               await showDialog(
                 context: context,
                 builder: (context) {
@@ -81,12 +79,6 @@ class _NoteScreenState extends State<NoteScreen> {
                           autofocus: true,
                           decoration: const InputDecoration(
                               hintText: "Enter your title."),
-                        ),
-                        TextField(
-                          controller: _descriptionController,
-                          autofocus: true,
-                          decoration: const InputDecoration(
-                              hintText: "Enter your description."),
                         ),
                       ],
                     ),
@@ -104,10 +96,8 @@ class _NoteScreenState extends State<NoteScreen> {
                           NoteController.updateNote(
                             index: index,
                             title: _titleController.text,
-                            desc: _descriptionController.text,
                           );
                           _titleController.text = "";
-                          _descriptionController.text = "";
                           setState(() {});
                           Navigator.pop(
                             context,
@@ -131,15 +121,9 @@ class _NoteScreenState extends State<NoteScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    noteModel.title,
+                    NoteController.noteList[index],
                     style: TextStyle(
                       fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    noteModel.description,
-                    style: TextStyle(
-                      fontSize: 12,
                     ),
                   ),
                 ],
@@ -178,11 +162,6 @@ class _NoteScreenState extends State<NoteScreen> {
                     decoration:
                         const InputDecoration(hintText: "Enter your Title."),
                   ),
-                  TextField(
-                    controller: _descriptionController,
-                    decoration: const InputDecoration(
-                        hintText: "Enter your description."),
-                  ),
                 ],
               ),
               actions: [
@@ -197,11 +176,9 @@ class _NoteScreenState extends State<NoteScreen> {
                   child: Text('Add'),
                   onPressed: () {
                     NoteController.addNote(
-                        model: NoteModel(
-                            title: _titleController.text,
-                            description: _descriptionController.text));
+                      title: _titleController.text,
+                    );
                     _titleController.text = "";
-                    _descriptionController.text = "";
                     setState(() {});
 
                     ///Still will adding our logic

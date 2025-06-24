@@ -1,42 +1,35 @@
-import 'note_model.dart';
+import 'package:first_project/Note%20App/helpers/hive_helper.dart';
 
 class NoteController {
-  static List<NoteModel> noteList = [];
+  static List<String> noteList = [];
 
   static void addNote({
-    required NoteModel model,
+    required String title,
   }) {
-    NoteController.noteList.add(model);
+    NoteController.noteList.add(title);
+    HiveHelper.addNote(noteList);
   }
 
   static void clearAllNotes() {
     noteList.clear();
+    HiveHelper.clearAllNotes();
   }
 
   static void updateNote({
     required int index,
     required String title,
-    required String desc,
   }) {
-    noteList[index].title = title;
-    noteList[index].description = desc;
+    noteList[index] = title;
+
+    HiveHelper.updateNote();
   }
 
   static void removeSingleNote({
     required int index,
   }) {
-    noteList.removeAt(index);
+    NoteController.noteList.removeAt(index);
+    HiveHelper.removeSingleNote();
   }
 }
 
 /// MVC
-var jsonData = [
-  {
-    "title": "Note 1",
-    "description": "This is a note",
-  },
-  {
-    "title": "Note 2",
-    "description": "This is a note",
-  },
-];

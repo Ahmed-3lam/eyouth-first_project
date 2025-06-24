@@ -28,8 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
         if (_start == 0) {
           setState(() {
             timer.cancel();
-            //push
-            //Replacement
+            // push
+            // Replacement
             Get.off(OnboardingOne());
           });
         } else {
