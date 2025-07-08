@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:first_project/Ecommerce/helpers/common_widgets/custom_btn.dart';
+import 'package:first_project/Ecommerce/login/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../const.dart';
 
@@ -81,14 +84,18 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
                 Spacer(),
-                _authBtn(
+                customBtn(
                     text: "Continue with Email or Phone",
                     color: Color(0xFF40AA54),
-                    textColor: Colors.white),
+                    textColor: Colors.white,
+                    onTap: () {
+                      print("======Get to login screen");
+                      Get.to(LoginScreen());
+                    }),
                 SizedBox(
                   height: 20,
                 ),
-                _authBtn(
+                customBtn(
                   text: "Create an account",
                   color: Colors.white,
                   textColor: Colors.black,
@@ -97,22 +104,6 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _authBtn(
-      {required String text, required Color color, required Color textColor}) {
-    return Container(
-      height: 56,
-      width: double.infinity,
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(15)),
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(color: textColor, fontSize: 16),
-        ),
       ),
     );
   }

@@ -1,8 +1,9 @@
+import 'package:first_project/Ecommerce/helpers/ecommerce_hive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../auth/auth_screen.dart';
 import '../const.dart';
-import 'auth_screen.dart';
 
 class OnboardingOne extends StatefulWidget {
   const OnboardingOne({super.key});
@@ -20,7 +21,6 @@ class _OnboardingOneState extends State<OnboardingOne> {
     return PopScope(
       canPop: canPop,
       onPopInvokedWithResult: (value, _) {
-        print(value);
         if (!value) {
           if (number > 1) {
             number--;
@@ -70,6 +70,7 @@ class _OnboardingOneState extends State<OnboardingOne> {
                     number++;
                     setState(() {});
                   } else {
+                    EcommerceHiveHelper.setValueOnboardingBox();
                     Get.off(AuthScreen());
                   }
                 },

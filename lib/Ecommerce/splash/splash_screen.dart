@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:first_project/Ecommerce/auth/auth_screen.dart';
+import 'package:first_project/Ecommerce/helpers/ecommerce_hive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 
-import 'onboarding_one.dart';
+import '../onboarding/onboarding_one.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -30,7 +33,11 @@ class _SplashScreenState extends State<SplashScreen> {
             timer.cancel();
             // push
             // Replacement
-            Get.off(OnboardingOne());
+            if (Hive.box(EcommerceHiveHelper.onboardingBox).isEmpty) {
+              Get.off(OnboardingOne());
+            } else {
+              Get.off(AuthScreen());
+            }
           });
         } else {
           setState(() {

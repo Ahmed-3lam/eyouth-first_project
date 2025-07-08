@@ -1,12 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
+import 'package:first_project/Ecommerce/const.dart';
+import 'package:first_project/Ecommerce/helpers/common_widgets/custom_btn.dart';
+import 'package:first_project/Ecommerce/login/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-
-import '../home_screen.dart';
-import 'login_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,136 +11,167 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool isPasswordVisable = false;
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  File? cameraImage;
-  File? galleryImage;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    print("Rebuild =========");
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 150.0,
-          left: 20,
-          right: 20,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Image.asset("assets/images/logo_2.png"),
-              SizedBox(
-                height: 100,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 5,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                      labelText: "Email",
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.person)),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  controller: _passwordController,
-                  obscureText: !isPasswordVisable,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        isPasswordVisable = !isPasswordVisable;
-                        // if (isPasswordVisable) {
-                        //   isPasswordVisable = false;
-                        // } else {
-                        //   isPasswordVisable = true;
-                        // }
-                        setState(() {});
-                      },
-                      icon: Icon(
-                        isPasswordVisable
-                            ? CupertinoIcons.eye
-                            : CupertinoIcons.eye_slash_fill,
+      body: GestureDetector(
+        onTap: FocusScope.of(context).unfocus,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 80,
+            left: 20,
+            right: 20,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    height: 120,
+                    width: 120,
+                    child: Image.asset("${imagesPath}cart_logo.png")),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Email"),
+                      SizedBox(
+                        height: 6,
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(8)),
+                        child: TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value!.length < 10) {
+                              return "The email letters should be more than 10 letters";
+                            } else if (!value.contains(".com")) {
+                              return "Email Should contain .com";
+                            }
+                          },
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomTextField(),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(height: 30),
-              MaterialButton(
-                color: Colors.green,
-                minWidth: 200,
-                onPressed: () {
-                  LoginController.loginModel.email = _emailController.text;
-                  LoginController.loginModel.password =
-                      _passwordController.text;
-                  Get.to(
-                    HomeScreen(),
-                  );
-                },
-                child: Text("Login"),
-              ),
-              if (cameraImage != null) Image.file(cameraImage!),
-              MaterialButton(
-                color: Colors.orange,
-                minWidth: 200,
-                onPressed: () async {
-                  cameraImage = await pickImage();
-
-                  setState(() {});
-                },
-                child: Text("Camera"),
-              ),
-              if (galleryImage != null) Image.file(galleryImage!),
-              MaterialButton(
-                color: Colors.blue,
-                minWidth: 200,
-                onPressed: () async {
-                  galleryImage = await pickImage(source: ImageSource.gallery);
-                  setState(() {});
-                },
-                child: Text("Pick Image from Gallery"),
-              ),
-            ],
+                SizedBox(
+                  height: 4,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text("Forget Password?"),
+                  ],
+                ),
+                SizedBox(
+                  height: 200,
+                ),
+                customBtn(
+                    text: "Login",
+                    color: Colors.green,
+                    textColor: Colors.white,
+                    onTap: () {
+                      _formKey.currentState!.validate();
+                    }),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  children: [
+                    _socialbtn(
+                      text: "Google",
+                      imagePath: "google_icon",
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    _socialbtn(
+                      text: "Apple",
+                      imagePath: "apple_icon",
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don’t Have Account?",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Sign up",
+                        style: TextStyle(
+                          color: Colors.green,
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-Future<File?> pickImage({
-  ImageSource source = ImageSource.camera,
-}) async {
-  final picker = ImagePicker();
-  final result = await picker.pickImage(source: source);
-  print("===================${result?.path}");
-  if (result?.path != null) {
-    final imageFile = File(result!.path);
-    return imageFile;
+  Widget _socialbtn(
+      {required String text, required String imagePath, required Color color}) {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        height: 56,
+        width: 170,
+        padding: EdgeInsets.symmetric(horizontal: 30),
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: color,
+            ),
+            borderRadius: BorderRadius.circular(12)),
+        child: Row(
+          children: [
+            Image.asset(
+              imagesPath + imagePath + ".png",
+              height: 30,
+              width: 30,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              text,
+              style: TextStyle(
+                color: color,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
-  return null;
-}
-
-String getName() {
-  return "Ahmed";
 }
