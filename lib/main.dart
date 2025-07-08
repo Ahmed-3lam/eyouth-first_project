@@ -13,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox(EcommerceHiveHelper.onboardingBox);
+  await Hive.openBox(EcommerceHiveHelper.token_box);
   DioHelper.initialize();
   runApp(MyApp());
 }

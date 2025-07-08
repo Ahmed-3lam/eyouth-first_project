@@ -8,7 +8,8 @@ class DioHelper {
       BaseOptions(
           connectTimeout: Duration(seconds: 60),
           receiveTimeout: Duration(seconds: 60),
-          baseUrl: "https://dev.da3mclinics.com/api/",
+          baseUrl: 'http://10.0.2.2:3000/',
+          receiveDataWhenStatusError: true,
           headers: {
             "Content-Type": "application/json",
           }),
@@ -27,11 +28,16 @@ class DioHelper {
     Map<String, dynamic>? body,
     Map<String, dynamic>? params,
   }) async {
-    final response = await _dio.post(
-      path,
-      data: body,
-      queryParameters: params,
-    );
-    return response;
+    try {
+      final response = await _dio.post(
+        path,
+        data: body,
+        queryParameters: params,
+      );
+      return response;
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
   }
 }
