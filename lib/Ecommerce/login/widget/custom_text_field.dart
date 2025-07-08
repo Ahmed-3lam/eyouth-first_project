@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({super.key});
+  final TextEditingController controller;
+
+  const CustomTextField(this.controller, {super.key});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -23,8 +25,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
-              color: Colors.grey[300], borderRadius: BorderRadius.circular(8)),
+              color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
           child: TextFormField(
+            controller: widget.controller,
             validator: (value) {
               if (value!.length < 6) {
                 return "Password should be more than 6 letters";

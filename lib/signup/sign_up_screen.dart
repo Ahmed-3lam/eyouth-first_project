@@ -1,22 +1,22 @@
 import 'package:first_project/Ecommerce/const.dart';
 import 'package:first_project/Ecommerce/helpers/common_widgets/custom_btn.dart';
-import 'package:first_project/Ecommerce/login/cubit/login_cubit.dart';
 import 'package:first_project/Ecommerce/login/widget/custom_text_field.dart';
-import 'package:first_project/signup/sign_up_screen.dart';
+import 'package:first_project/signup/cubit/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailContoller = TextEditingController();
+  final _nameContoller = TextEditingController();
+  final _phoneContoller = TextEditingController();
   final _passwordContoller = TextEditingController();
 
   @override
@@ -70,6 +70,46 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 20,
                       ),
+                      Text("Name"),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8)),
+                        child: TextFormField(
+                          controller: _nameContoller,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("Phone"),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8)),
+                        child: TextFormField(
+                          controller: _phoneContoller,
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       CustomTextField(_passwordContoller),
                     ],
                   ),
@@ -77,27 +117,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 4,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text("Forget Password?"),
-                  ],
-                ),
                 SizedBox(
                   height: 200,
                 ),
-                BlocBuilder<LoginCubit, LoginState>(
+                BlocBuilder<SignUpCubit, SignUpState>(
                   builder: (context, state) {
                     return customBtn(
-                        text: "Login",
+                        text: "Sign Up",
                         color: Colors.green,
                         textColor: Colors.white,
                         onTap: () {
                           _formKey.currentState!.validate();
                           if (_formKey.currentState!.validate()) {
-                            context.read<LoginCubit>().login(
+                            context.read<SignUpCubit>().signUp(
                                   email: _emailContoller.text,
                                   password: _passwordContoller.text,
+                                  name: _nameContoller.text,
+                                  phone: _phoneContoller.text,
                                 );
                           }
                         });
@@ -106,48 +142,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 50,
                 ),
-                Row(
-                  children: [
-                    _socialbtn(
-                      text: "Google",
-                      imagePath: "google_icon",
-                      color: Colors.red,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    _socialbtn(
-                      text: "Apple",
-                      imagePath: "apple_icon",
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: 50,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don’t Have Account?",
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Get.to(SignUpScreen());
-                      },
-                      child: Text(
-                        "Sign up",
-                        style: TextStyle(
-                          color: Colors.green,
-                        ),
-                      ),
-                    )
-                  ],
-                )
               ],
             ),
           ),
