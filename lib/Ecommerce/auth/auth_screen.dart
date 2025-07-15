@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:first_project/Ecommerce/helpers/common_widgets/custom_btn.dart';
 import 'package:first_project/Ecommerce/login/login_screen.dart';
+import 'package:first_project/signup/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -96,10 +97,12 @@ class _AuthScreenState extends State<AuthScreen> {
                   height: 20,
                 ),
                 customBtn(
-                  text: "Create an account",
-                  color: Colors.white,
-                  textColor: Colors.black,
-                ),
+                    text: "Create an account",
+                    color: Colors.white,
+                    textColor: Colors.black,
+                    onTap: () {
+                      Get.to(SignUpScreen());
+                    }),
               ],
             ),
           ),

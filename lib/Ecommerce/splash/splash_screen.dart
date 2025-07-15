@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:first_project/Ecommerce/auth/auth_screen.dart';
 import 'package:first_project/Ecommerce/helpers/ecommerce_hive_helper.dart';
-import 'package:first_project/Ecommerce/home/home_screen.dart';
+import 'package:first_project/Ecommerce/home/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
             if (Hive.box(EcommerceHiveHelper.onboardingBox).isEmpty) {
               Get.off(OnboardingOne());
             } else if (Hive.box(EcommerceHiveHelper.token_box).isNotEmpty) {
-              Get.off(HomeScreen());
+              Get.off(MainScreen());
             } else {
               Get.off(AuthScreen());
             }

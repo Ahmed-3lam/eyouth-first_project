@@ -1,6 +1,6 @@
 import 'package:first_project/Ecommerce/const.dart';
 import 'package:first_project/Ecommerce/helpers/common_widgets/custom_btn.dart';
-import 'package:first_project/Ecommerce/home/home_screen.dart';
+import 'package:first_project/Ecommerce/home/main_screen.dart';
 import 'package:first_project/Ecommerce/login/cubit/login_cubit.dart';
 import 'package:first_project/Ecommerce/login/widget/custom_text_field.dart';
 import 'package:first_project/signup/sign_up_screen.dart';
@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is LoginSuccessState) {
           Get.snackbar("Success State", "success",
               backgroundColor: Colors.green);
-          Get.to(HomeScreen());
+          Get.to(MainScreen());
         }
         if (state is LoginErrorState) {
           Get.snackbar("Error State", "Error", backgroundColor: Colors.red);

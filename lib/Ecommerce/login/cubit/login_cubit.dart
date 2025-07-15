@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:first_project/Ecommerce/helpers/dio_helper.dart';
 import 'package:first_project/Ecommerce/helpers/ecommerce_hive_helper.dart';
+import 'package:first_project/Ecommerce/helpers/network/dio_helper.dart';
 
 part 'login_state.dart';
 
@@ -36,18 +36,3 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 }
-
-// {
-// "status_code": 201,
-// "data": {
-// "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsImVtYWlsIjoiZmdmZ2ZnZmdAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTE5OTY4OTIsImV4cCI6MTc1MjA4MzI5Mn0.Q1AAvcRXQktvDhS4lFu6J1wIndzBftf9rOkbAt_aQfg",
-// "user": {
-// "id": 8,
-// "name": "Alice Johnson",
-// "email": "fgfgfgfg@example.com",
-// "phone": "+1234567892",
-// "image": "https://images.unsplash.com/photo-1494790108755-2616b612b789?w=400"
-// }
-// },
-// "message": "Registration successful"
-// }

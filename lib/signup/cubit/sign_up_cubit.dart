@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:first_project/Ecommerce/helpers/dio_helper.dart';
+import 'package:first_project/Ecommerce/helpers/network/dio_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

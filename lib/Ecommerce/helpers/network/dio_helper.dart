@@ -1,4 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:first_project/Ecommerce/helpers/ecommerce_hive_helper.dart';
+
+import 'api_endpoint.dart';
 
 class DioHelper {
   static late Dio _dio;
@@ -8,10 +11,11 @@ class DioHelper {
       BaseOptions(
           connectTimeout: Duration(seconds: 60),
           receiveTimeout: Duration(seconds: 60),
-          baseUrl: 'http://10.0.2.2:3000/',
+          baseUrl: ApiEndPoint.baseUrl,
           receiveDataWhenStatusError: true,
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer ${EcommerceHiveHelper.getToken()}"
           }),
     );
   }

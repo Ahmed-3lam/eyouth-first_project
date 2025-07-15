@@ -4,7 +4,6 @@ class EcommerceHiveHelper {
   static const onboardingBox = "ONBOARDING_BOX";
   static const onboardingKey = "ONBOARDING_Key";
   static const token_box = "TOKEN_BOX";
-  static const token_key = "token_key";
 
   static void setValueOnboardingBox() async {
     await Hive.box(onboardingBox).put(onboardingKey, true);
@@ -12,6 +11,16 @@ class EcommerceHiveHelper {
 
   static void setToken(String token) async {
     await Hive.box(token_box).put(token_box, token);
+  }
+
+  static String getToken() {
+    if (Hive.box(token_box).isNotEmpty) {
+      return Hive.box(token_box).get(
+        token_box,
+      );
+    } else {
+      return "";
+    }
   }
 
 // static bool isOnboardingBoxIsEmpty() {
@@ -22,3 +31,8 @@ class EcommerceHiveHelper {
 //   }
 // }
 }
+
+/// Localization
+/// Firebase
+/// Apis
+/// Github
