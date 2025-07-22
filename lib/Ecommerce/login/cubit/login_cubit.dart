@@ -26,8 +26,6 @@ class LoginCubit extends Cubit<LoginState> {
     // log("result is: ${result.data}");
 
     if (result.data["status_code"] == 200) {
-      log("-------------TOKEN -----------");
-
       print("My Token is ${result.data["data"]["token"]}");
       EcommerceHiveHelper.setToken(result.data["data"]["token"]);
       emit(LoginSuccessState());
